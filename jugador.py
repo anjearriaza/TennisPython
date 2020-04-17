@@ -15,10 +15,11 @@ class Jugador(turtle.Turtle):
         super().__init__()
         self.nombre = nombre
         self.puntuacion = 0
+        self.posicion = posicion
 
-        if posicion == Jugador.Posicion.IZQUIERDA:
+        if self.posicion == Jugador.Posicion.IZQUIERDA:
             a = -350
-        elif posicion == Jugador.Posicion.DERECHA:
+        elif self.posicion == Jugador.Posicion.DERECHA:
             a = 350
         else:
             raise Exception("La posición del jugador debe ser una de las permitidas")
