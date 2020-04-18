@@ -1,5 +1,6 @@
 import turtle
 import random
+from jugador import Jugador
 
 # Ventana
 
@@ -9,23 +10,9 @@ ventana.bgcolor("black")
 ventana.setup(width=800, height=600)
 ventana.tracer(0)
 
-# Jugador A
-jugadorA = turtle.Turtle()
-jugadorA.speed(0)
-jugadorA.shape("square")
-jugadorA.color("white")
-jugadorA.penup()
-jugadorA.goto(-350, 0)
-jugadorA.shapesize(stretch_wid=5, stretch_len=1)
-
-# Jugador B
-jugadorB = turtle.Turtle()
-jugadorB.speed(0)
-jugadorB.shape("square")
-jugadorB.color("white")
-jugadorB.penup()
-jugadorB.goto(350, 0)
-jugadorB.shapesize(stretch_wid=5, stretch_len=1)
+# Jugadores
+jugadorA = Jugador("Antonio", Jugador.Posicion.IZQUIERDA)
+jugadorB = Jugador("Jona", Jugador.Posicion.DERECHA)
 
 # Linea de division
 division = turtle.Turtle()
@@ -45,7 +32,6 @@ pelota.goto(0, 0)
 pelota.dx = 3
 pelota.dy = 3
 
-
 # Marcador
 marcador = turtle.Turtle()
 marcador.speed(0)
@@ -53,13 +39,8 @@ marcador.color("white")
 marcador.penup()
 marcador.hideturtle()
 marcador.goto(0, 260)
-marcador.write("JugadorA: 0			JugadorB: 0", align="center",
-               font=("Courier", 24, "normal"))
-
-# puntuaciones
-puntuacionA = 0
-puntuacionB = 0
-
+marcador.write("{0.nombre}: {0.puntuacion}			{1.nombre}: {1.puntuacion}".format(jugadorA, jugadorB),
+               align="center", font=("Courier", 24, "normal"))
 
 # Incrementador de velocidad
 contador = 0
@@ -73,30 +54,6 @@ def signo():
         x = random.randint(-1, 1)
 
     return(x/abs(x))
-
-
-def jugadorA_up():
-    y = jugadorA.ycor()
-    y += 20
-    jugadorA.sety(y)
-
-
-def jugadorA_down():
-    y = jugadorA.ycor()
-    y -= 20
-    jugadorA.sety(y)
-
-
-def jugadorB_up():
-    y = jugadorB.ycor()
-    y += 20
-    jugadorB.sety(y)
-
-
-def jugadorB_down():
-    y = jugadorB.ycor()
-    y -= 20
-    jugadorB.sety(y)
 
 
 def posicionLibre(x):
@@ -133,11 +90,10 @@ tempo_random = random.randint(1, 10)
 
 # Teclado
 ventana.listen()
-ventana.onkeypress(jugadorA_up, "d")
-ventana.onkeypress(jugadorA_down, "c")
-ventana.onkeypress(jugadorB_up, "Up")
-ventana.onkeypress(jugadorB_down, "Down")
-
+ventana.onkeypress(jugadorA.up, "d")
+ventana.onkeypress(jugadorA.down, "c")
+ventana.onkeypress(jugadorB.up, "Up")
+ventana.onkeypress(jugadorB.down, "Down")
 
 while True:
     ventana.update()
@@ -154,17 +110,17 @@ while True:
 
     if pelota.xcor() > 390:
         pelota.goto(0, 0)
-        puntuacionA += 1
+        jugadorA.punto()
         marcador.clear()
-        marcador.write("JugadorA: {}		JugadorB: {}".format(
-            puntuacionA, puntuacionB), align="center", font=("Courier", 24, "normal"))
+        marcador.write("{0.nombre}: {0.puntuacion}			{1.nombre}: {1.puntuacion}".format(jugadorA, jugadorB),
+                       align="center", font=("Courier", 24, "normal"))
 
     if pelota.xcor() < -390:
         pelota.goto(0, 0)
-        puntuacionB += 1
+        jugadorB.punto()
         marcador.clear()
-        marcador.write("JugadorA: {}		JugadorB: {}".format(
-            puntuacionA, puntuacionB), align="center", font=("Courier", 24, "normal"))
+        marcador.write("{0.nombre}: {0.puntuacion}			{1.nombre}: {1.puntuacion}".format(jugadorA, jugadorB),
+                       align="center", font=("Courier", 24, "normal"))
 
     if ((pelota.xcor() > 340 and pelota.xcor() < 350)
         and (pelota.ycor() < jugadorB.ycor()+50
