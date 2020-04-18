@@ -5,3 +5,11 @@
 - Migrar a alguna de las librerías de juegos (arcade, pyGame?)
 - Simplificar el flujo de trabajo en git con un repositorio central
 - Mirar la forma de empaquetar el juego para que sea un ejecutable
+- Jugar de forma remota (https://www.youtube.com/watch?v=-3B1v-K1oXE)
+- Introducir variantes de juego:
+    - Bricks
+    - La modalidad de juego doble del Bubble bobble
+    - Un minigolf
+    - Adelantar la paleta para que la pelota vaya más rápida
+    - Añadir elementos del pinball (como los circulitos que despiden la bola)
+    
